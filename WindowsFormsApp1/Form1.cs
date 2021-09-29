@@ -12,9 +12,16 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        bool draw = false; 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            draw = true; 
+
         }
     }
 }
