@@ -58,26 +58,53 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Red",
+            "Orange",
+            "Yellow",
+            "Green",
+            "Blue",
+            "Indigo",
+            "Violet"});
             this.comboBox1.Location = new System.Drawing.Point(350, 476);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Red",
+            "Orange",
+            "Yellow",
+            "Green",
+            "Blue",
+            "Indigo",
+            "Violet"});
             this.comboBox2.Location = new System.Drawing.Point(477, 476);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 24);
             this.comboBox2.TabIndex = 6;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
             // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Red",
+            "Orange",
+            "Yellow",
+            "Green",
+            "Blue",
+            "Indigo",
+            "Violet"});
             this.comboBox3.Location = new System.Drawing.Point(610, 476);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 24);
             this.comboBox3.TabIndex = 7;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
             // 
             // Form1
             // 
