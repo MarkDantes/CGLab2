@@ -142,14 +142,14 @@ namespace WindowsFormsApp1
             //Graphics g = Graphics.FromImage(bt);
 
             int x1 = rnd.Next(100, 300);
-            int y1 = rnd.Next(100, 250);
+            int y1 = rnd.Next(100, 240);
 
-            int y2 = rnd.Next(100, 250);
+            int y2 = rnd.Next(100, 240);
 
 
-            a = new PointF(x1, y1 - 50);
-            b = new PointF(x1 + 50, y2 + 50);
-            c = new PointF(x1 - 50, y2 + 50);
+            a = new PointF(x: x1, y: y1 - 50);
+            b = new PointF(x: x1 + 50, y: y2  );
+            c = new PointF(x: x1 - 50, y: y2  );
 
             PointF[] points = { a, b, c };
 
@@ -183,11 +183,29 @@ namespace WindowsFormsApp1
         //Процедура окраски в градиентный цвет
         public void Gradient()
         {
-            Bitmap image = new Bitmap(pictureBox1.Width - 1, pictureBox1.Height - 1);
+            Bitmap image = new Bitmap(pictureBox1.Size.Width - 1, pictureBox1.Size.Height - 1);
 
-            
+            var Dc1 = c2.ToArgb() - c1.ToArgb();
+            var Dc2 = c3.ToArgb() - c1.ToArgb();
+            for (int y = 0; y<= R().Item2.Y; y++)
+            {
+                for (int x = 0; x <= R().Item2.X; x++)
+                {
+                    float w1 = (y * b.X - x * b.Y) / (float)(a.Y * b.X - a.X * b.Y);
+                    if (w1>=0 && w1<=1)
+                    {
+                        float w2 = (float)(y - w1 * a.Y) / (float)(b.Y);
+                        if (w2 >= 0 && (w1 + w2) <= 1)
+                        {
+                            var res = c1.ToArgb() + (Dc1 * w1) + (Dc2 * w2);
 
-                    pictureBox1.Image = image;
+                            image.SetPixel(x, y, Color.FromArgb(Convert.ToInt32(res)));
+                        }
+                    }
+
+                }
+            }
+              pictureBox1.Image = image;
         }
 
 
@@ -256,6 +274,7 @@ namespace WindowsFormsApp1
             {
 
                 g.FillRectangle(aBrush, x, y, 1, 1);
+                
 
                 if (delta > 0)
                 {

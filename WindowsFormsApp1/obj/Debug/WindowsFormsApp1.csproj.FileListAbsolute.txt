@@ -7,3 +7,4 @@ C:\GitProjects\CGLab2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.Generat
 C:\GitProjects\CGLab2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\GitProjects\CGLab2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\GitProjects\CGLab2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\GitProjects\CGLab2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources

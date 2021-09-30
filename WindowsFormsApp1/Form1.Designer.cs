@@ -39,8 +39,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(493, 304);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(584, 345);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(73, 25);
             this.button1.TabIndex = 0;
@@ -52,9 +52,10 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictureBox1.Location = new System.Drawing.Point(233, 27);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(333, 256);
+            this.pictureBox1.Size = new System.Drawing.Size(500, 300);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -69,8 +70,8 @@
             "Blue",
             "Indigo",
             "Violet"});
-            this.comboBox1.Location = new System.Drawing.Point(233, 305);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Location = new System.Drawing.Point(324, 346);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(82, 24);
             this.comboBox1.TabIndex = 5;
@@ -87,8 +88,8 @@
             "Blue",
             "Indigo",
             "Violet"});
-            this.comboBox2.Location = new System.Drawing.Point(318, 305);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox2.Location = new System.Drawing.Point(409, 346);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(82, 24);
             this.comboBox2.TabIndex = 6;
@@ -105,8 +106,8 @@
             "Blue",
             "Indigo",
             "Violet"});
-            this.comboBox3.Location = new System.Drawing.Point(407, 305);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox3.Location = new System.Drawing.Point(498, 346);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(82, 24);
             this.comboBox3.TabIndex = 7;
@@ -116,7 +117,7 @@
             // 
             this.checkBoxLineDrawer.AutoSize = true;
             this.checkBoxLineDrawer.Location = new System.Drawing.Point(8, 8);
-            this.checkBoxLineDrawer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxLineDrawer.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxLineDrawer.Name = "checkBoxLineDrawer";
             this.checkBoxLineDrawer.Size = new System.Drawing.Size(147, 21);
             this.checkBoxLineDrawer.TabIndex = 0;
@@ -128,14 +129,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 362);
+            this.ClientSize = new System.Drawing.Size(737, 396);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBoxLineDrawer);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouseClick);
