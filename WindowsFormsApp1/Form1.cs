@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
         private int? x1, y1;
         private bool lineDrawerIsChecked;
 
-        Brush aBrush = (Brush)Brushes.Black;
+        Brush aBrush = new SolidBrush(Color.FromArgb(255, Color.Black));
 
 
         public void setPosition(int x, int y)
@@ -54,7 +54,7 @@ namespace WindowsFormsApp1
             {
                 x1 = x;
                 y1 = y;
-                drawLine(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
+                drawWuLine(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
                 return;
             }
             x0 = x;
@@ -62,6 +62,8 @@ namespace WindowsFormsApp1
             x1 = null;
             y1 = null;
         }
+
+        
 
         void drawLineUpper(int x0, int y0, int x1, int y1)
         {
@@ -82,7 +84,7 @@ namespace WindowsFormsApp1
 
             for (int y = y0; y <= y1; y++)
             {
-
+               
                 g.FillRectangle(aBrush, x, y, 1, 1);
 
                 if (delta > 0)
@@ -151,6 +153,83 @@ namespace WindowsFormsApp1
                     drawLineUpper(x0, y0, x1, y1);
             }
         }
+
+        void drawPixel(int x, int y, double c)
+        {
+            Brush brush = new SolidBrush(Color.FromArgb((int)Math.Floor(255.0*c), Color.Black));
+            g.FillRectangle(brush, x, y, 1, 1);
+        }
+
+        double fpart(double x)
+        {
+            return x - Math.Floor(x);
+        }
+
+        double rfpart(double x)
+        {
+            return 1 - fpart(x);
+        }
+
+        void drawWuLine(int x0,int y0,int x1,int y1)
+        {
+            g = this.CreateGraphics();
+
+            if (x1 < x0)
+            {
+                (x0, x1) = (x1, x0);
+                (y0, y1) = (y1, y0);
+            }
+            var dx = x1 - x0;
+            var dy = y1 - y0;
+            var gradient = dy / dx;
+
+            // обработать начальную точку
+            var xend = x0;
+            double yend = y0 + gradient * (xend - x0);
+            var xgap = 1 - fpart(x0 + 0.5);
+            var xpxl0 = xend;  // будет использоваться в основном цикле
+            var ypxl0 = int.Parse(Math.Floor(yend).ToString());
+            drawPixel(xpxl0, ypxl0, (1 - fpart(yend)) * xgap);
+            drawPixel(xpxl0, ypxl0 + 1, fpart(yend) * xgap);
+            var intery = yend + gradient; // первое y-пересечение для цикла
+
+   // обработать конечную точку
+        xend= int.Parse(Math.Round(x1 + 0.5).ToString());
+            yend = y1 + gradient * (xend - x1);
+            xgap = fpart(x1 + 0.5);
+            var xpxl1 = xend;  // будет использоваться в основном цикле
+   var ypxl1= int.Parse(Math.Floor(yend).ToString());
+            drawPixel(xpxl1, ypxl1, (1 - fpart(yend)) * xgap);
+            drawPixel(xpxl1, ypxl1 + 1, fpart(yend) * xgap);
+
+            // основной цикл
+            for (int x = xpxl0 + 1; x <= (xpxl1 - 1); x++) 
+            {
+                drawPixel(x, int.Parse(Math.Floor(intery).ToString()), 1 - fpart(intery));
+                drawPixel(x, int.Parse(Math.Floor(intery).ToString()) + 1, fpart(intery));
+                intery = intery + gradient;
+            }
+                   
+   
+
+
+
+
+
+
+        }
+   
+    
+   
+    
+    
+    
+
+    
+
+
+   
+  
     }
 
 
