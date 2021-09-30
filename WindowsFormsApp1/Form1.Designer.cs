@@ -28,13 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.checkBoxLineDrawer = new System.Windows.Forms.CheckBox();
+            this.SuspendLayout();
+            // 
+            // checkBoxLineDrawer
+            // 
+            this.checkBoxLineDrawer.AutoSize = true;
+            this.checkBoxLineDrawer.Location = new System.Drawing.Point(12, 12);
+            this.checkBoxLineDrawer.Name = "checkBoxLineDrawer";
+            this.checkBoxLineDrawer.Size = new System.Drawing.Size(222, 29);
+            this.checkBoxLineDrawer.TabIndex = 0;
+            this.checkBoxLineDrawer.Text = "Enable line drawer";
+            this.checkBoxLineDrawer.UseVisualStyleBackColor = true;
+            this.checkBoxLineDrawer.CheckedChanged += new System.EventHandler(this.onCheckedChanged);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.checkBoxLineDrawer);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouseClick);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.CheckBox checkBoxLineDrawer;
     }
 }
 
