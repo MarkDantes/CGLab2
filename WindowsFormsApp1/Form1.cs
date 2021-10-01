@@ -54,7 +54,8 @@ namespace WindowsFormsApp1
             {
                 x1 = x;
                 y1 = y;
-                drawWuLine(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
+				g = this.CreateGraphics();
+				drawWuLine2(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
                 return;
             }
             x0 = x;
@@ -137,7 +138,6 @@ namespace WindowsFormsApp1
         ///Bresenham's line algorithm
         private void drawLine(int x0, int y0, int x1, int y1)
         {
-            g = this.CreateGraphics();
             if (Math.Abs(y1 - y0) < Math.Abs(x1 - x0))
             {
                 if (x0 > x1)
@@ -160,6 +160,16 @@ namespace WindowsFormsApp1
             g.FillRectangle(brush, x, y, 1, 1);
         }
 
+		double ipart(double x)
+		{
+			return Math.Floor(x);
+		}
+
+		double round(double x)
+		{
+			return ipart(x + 0.5);
+		}
+
         double fpart(double x)
         {
             return x - Math.Floor(x);
@@ -170,9 +180,81 @@ namespace WindowsFormsApp1
             return 1 - fpart(x);
         }
 
+		void drawWuLine2(double x0, double y0, double x1, double y1)
+		{
+			bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+			if (steep)
+			{
+				(x0, y0) = (y0, x0);
+				(x1, y1) = (y1, x1);
+			}
+			if (x0 > x1)
+			{
+				(x0, x1) = (x1, x0);
+				(y0, y1) = (y1, y0);
+			}
+
+			var dx = x1 - x0;
+			var dy = y1 - y0;
+			var gradient = dy / dx;
+			if (dx == 0.0)
+			{
+				gradient = 1.0;
+			}
+			var xend = round(x0);
+			var yend = y0 + gradient * (xend - x0);
+			var xgap = rfpart(x0 + 0.5);
+			var xpxl1 = xend;
+			var ypxl1 = ipart(yend);
+			if (steep)
+			{
+				drawPixel(int.Parse(ypxl1.ToString()), int.Parse(xpxl1.ToString()), rfpart(yend) * xgap);
+				drawPixel(int.Parse((ypxl1 + 1).ToString()), int.Parse(xpxl1.ToString()), rfpart(yend) * xgap);
+			}
+			else
+			{
+				drawPixel(int.Parse(xpxl1.ToString()), int.Parse(ypxl1.ToString()), rfpart(yend) * xgap);
+				drawPixel(int.Parse(xpxl1.ToString()), int.Parse((ypxl1+1).ToString()), rfpart(yend) * xgap);
+			}
+			var intery = yend + gradient;
+			xend = round(x1);
+			yend = y1 + gradient * (xend - x1);
+			xgap = rfpart(x0 + 0.5);
+			var xpxl2 = xend;
+			var ypxl2 = ipart(yend);
+			if (steep)
+			{
+				drawPixel(int.Parse(ypxl2.ToString()), int.Parse(xpxl2.ToString()), rfpart(yend) * xgap);
+				drawPixel(int.Parse((ypxl2 + 1).ToString()), int.Parse(xpxl2.ToString()), rfpart(yend) * xgap);
+			}
+			else
+			{
+				drawPixel(int.Parse(xpxl2.ToString()), int.Parse(ypxl2.ToString()), rfpart(yend) * xgap);
+				drawPixel(int.Parse(xpxl2.ToString()), int.Parse((ypxl2 + 1).ToString()), rfpart(yend) * xgap);
+			}
+
+			if (steep)
+			{
+				for (int x = int.Parse((xpxl1 + 1).ToString()); x <= int.Parse((xpxl2 - 1).ToString()); x++)
+				{
+					drawPixel(int.Parse(ipart(intery).ToString()), int.Parse(x.ToString()), rfpart(intery));
+					drawPixel(int.Parse(ipart(intery).ToString()) + 1, int.Parse(x.ToString()), rfpart(intery));
+					intery += gradient;
+				}
+			}
+			else
+			{
+				for (int x = int.Parse((xpxl1 + 1).ToString()); x <= int.Parse((xpxl2 - 1).ToString()); x++)
+				{
+					drawPixel(int.Parse(x.ToString()), int.Parse(ipart(intery).ToString()), rfpart(intery));
+					drawPixel(int.Parse(x.ToString()), int.Parse(ipart(intery).ToString()) + 1, rfpart(intery));
+					intery += gradient;
+				}
+			}
+		}
+
         void drawWuLine(int x0,int y0,int x1,int y1)
         {
-            g = this.CreateGraphics();
 
             if (x1 < x0)
             {
@@ -209,14 +291,6 @@ namespace WindowsFormsApp1
                 drawPixel(x, int.Parse(Math.Floor(intery).ToString()) + 1, fpart(intery));
                 intery = intery + gradient;
             }
-                   
-   
-
-
-
-
-
-
         }
    
     
