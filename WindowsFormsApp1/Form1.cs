@@ -185,8 +185,8 @@ namespace WindowsFormsApp1
         {
             Bitmap image = new Bitmap(pictureBox1.Size.Width - 1, pictureBox1.Size.Height - 1);
 
-            var Dc1 = c2.ToArgb() - c1.ToArgb();
-            var Dc2 = c3.ToArgb() - c1.ToArgb();
+
+             
             for (int y = 0; y<= R().Item2.Y; y++)
             {
                 for (int x = 0; x <= R().Item2.X; x++)
@@ -194,12 +194,14 @@ namespace WindowsFormsApp1
                     float w1 = (y * b.X - x * b.Y) / (float)(a.Y * b.X - a.X * b.Y);
                     if (w1>=0 && w1<=1)
                     {
-                        float w2 = (float)(y - w1 * a.Y) / (float)(b.Y);
+                        float w2 = (y - w1 * a.Y) / (float)(b.Y);
                         if (w2 >= 0 && (w1 + w2) <= 1)
                         {
-                            var res = c1.ToArgb() + (Dc1 * w1) + (Dc2 * w2);
+                            var resR =c1.R +  (c2.R - c1.R)* w1 + (c3.R - c1.R) * w2;
+                            var resG =c1.G +  (c2.G - c1.G) * w1 + (c3.G - c1.G) * w2;
+                            var resB =c1.B + (c2.B - c1.B) * w1 + (c3.B - c1.B) * w2;
 
-                            image.SetPixel(x, y, Color.FromArgb(Convert.ToInt32(res)));
+                            image.SetPixel(x, y, Color.FromArgb(Convert.ToInt32(resR), Convert.ToInt32(resG), Convert.ToInt32(resB)));
                         }
                     }
 
