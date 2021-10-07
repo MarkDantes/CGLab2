@@ -232,6 +232,12 @@ namespace WindowsFormsApp1
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form222 ff = new Form222();
+            ff.Show();
+        }
+
         private bool lineDrawerIsChecked;
 
         Brush aBrush = (Brush)Brushes.Black;
