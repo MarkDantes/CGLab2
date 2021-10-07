@@ -377,12 +377,6 @@ Temporary Items
 # Ignore "InteropTests/NativeTests/out"
 InteropTests/NativeTests/out
 /src/System.Windows.Forms/src/comctl32.dll
-<<<<<<< HEAD
 *.received.*
-WindowsFormsApp1/.vs/WindowsFormsApp1/v16/.suo
-WindowsFormsApp1/obj/Debug/DesignTimeResolveAssemblyReferences.cache
-WindowsFormsApp1/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-WindowsFormsApp1/obj/Debug/WindowsFormsApp1.csproj.CoreCompileInputs.cache
-=======
-*.received.*
->>>>>>> add Bresenham's line algorithm
+*.manifest
+*.cache
