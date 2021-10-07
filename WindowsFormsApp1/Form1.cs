@@ -19,11 +19,6 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        private void onCheckedChanged(object sender, EventArgs e)
-        {
-            lineDrawerIsChecked = checkBoxLineDrawer.Checked;
-        }
-
         private void onMouseClick(object sender, MouseEventArgs e)
         {
             setPosition(e.X, e.Y);
@@ -34,14 +29,17 @@ namespace WindowsFormsApp1
 
         private int? x0, y0;
         private int? x1, y1;
-        private bool lineDrawerIsChecked;
+        private bool IsDisabled;
+        private bool IsBresenham;
+        private bool IsWu;
+
 
         Brush aBrush = new SolidBrush(Color.FromArgb(255, Color.Black));
 
 
         public void setPosition(int x, int y)
         {
-            if (!lineDrawerIsChecked)
+            if (IsDisabled)
                 return;
 
             if (x0 == null || y0 == null)
@@ -55,7 +53,13 @@ namespace WindowsFormsApp1
                 x1 = x;
                 y1 = y;
 				g = this.CreateGraphics();
-				drawWuLine2(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
+                if (IsWu)
+                {
+                    drawWuLine2(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
+                } else if (IsBresenham)
+                {
+                    drawLine(x0.GetValueOrDefault(), y0.GetValueOrDefault(), x1.GetValueOrDefault(), y1.GetValueOrDefault());
+                }
                 return;
             }
             x0 = x;
@@ -156,35 +160,16 @@ namespace WindowsFormsApp1
 
         void drawPixel(int x, int y, double c)
         {
-            Brush brush = new SolidBrush(Color.FromArgb((int)Math.Floor(255.0*c), Color.Black));
+            Brush brush = new SolidBrush(Color.FromArgb((int)c, Color.Black));
             g.FillRectangle(brush, x, y, 1, 1);
         }
 
-		double ipart(double x)
-		{
-			return Math.Floor(x);
-		}
 
-		double round(double x)
-		{
-			return ipart(x + 0.5);
-		}
-
-        double fpart(double x)
-        {
-            return x - Math.Floor(x);
-        }
-
-        double rfpart(double x)
-        {
-            return 1 - fpart(x);
-        }
-
-		void drawWuLine2(double x0, double y0, double x1, double y1)
+		void drawWuLine2(int x0, int y0, int x1, int y1)
 		{
 			bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
 			if (steep)
-			{
+			{   
 				(x0, y0) = (y0, x0);
 				(x1, y1) = (y1, x1);
 			}
@@ -194,115 +179,121 @@ namespace WindowsFormsApp1
 				(y0, y1) = (y1, y0);
 			}
 
-			var dx = x1 - x0;
-			var dy = y1 - y0;
-			var gradient = dy / dx;
-			if (dx == 0.0)
+			double dx = x1 - x0;
+			double dy = y1 - y0;
+			double gradient = (double)((double)(dy) / (double)(dx));
+            if (dx == 0.0)
 			{
-				gradient = 1.0;
-			}
-			var xend = round(x0);
-			var yend = y0 + gradient * (xend - x0);
-			var xgap = rfpart(x0 + 0.5);
-			var xpxl1 = xend;
-			var ypxl1 = ipart(yend);
-			if (steep)
-			{
-				drawPixel(int.Parse(ypxl1.ToString()), int.Parse(xpxl1.ToString()), rfpart(yend) * xgap);
-				drawPixel(int.Parse((ypxl1 + 1).ToString()), int.Parse(xpxl1.ToString()), rfpart(yend) * xgap);
-			}
-			else
-			{
-				drawPixel(int.Parse(xpxl1.ToString()), int.Parse(ypxl1.ToString()), rfpart(yend) * xgap);
-				drawPixel(int.Parse(xpxl1.ToString()), int.Parse((ypxl1+1).ToString()), rfpart(yend) * xgap);
-			}
-			var intery = yend + gradient;
-			xend = round(x1);
-			yend = y1 + gradient * (xend - x1);
-			xgap = rfpart(x0 + 0.5);
-			var xpxl2 = xend;
-			var ypxl2 = ipart(yend);
-			if (steep)
-			{
-				drawPixel(int.Parse(ypxl2.ToString()), int.Parse(xpxl2.ToString()), rfpart(yend) * xgap);
-				drawPixel(int.Parse((ypxl2 + 1).ToString()), int.Parse(xpxl2.ToString()), rfpart(yend) * xgap);
-			}
-			else
-			{
-				drawPixel(int.Parse(xpxl2.ToString()), int.Parse(ypxl2.ToString()), rfpart(yend) * xgap);
-				drawPixel(int.Parse(xpxl2.ToString()), int.Parse((ypxl2 + 1).ToString()), rfpart(yend) * xgap);
+				gradient = 1;
 			}
 
-			if (steep)
+            int xpxl1 = x0;
+            int xpxl2 = x1;
+            double intery = y0;
+
+            if (steep)
 			{
-				for (int x = int.Parse((xpxl1 + 1).ToString()); x <= int.Parse((xpxl2 - 1).ToString()); x++)
+				for (int x = int.Parse((xpxl1).ToString()); x <= int.Parse((xpxl2).ToString()); x++)
 				{
-					drawPixel(int.Parse(ipart(intery).ToString()), int.Parse(x.ToString()), rfpart(intery));
-					drawPixel(int.Parse(ipart(intery).ToString()) + 1, int.Parse(x.ToString()), rfpart(intery));
+					drawPixel(int.Parse(iPart(intery).ToString()), int.Parse(x.ToString()), rfPart(intery)*255);
+					drawPixel(int.Parse(iPart(intery).ToString()) + 1, int.Parse(x.ToString()), fPart(intery)*255);
 					intery += gradient;
 				}
 			}
 			else
 			{
-				for (int x = int.Parse((xpxl1 + 1).ToString()); x <= int.Parse((xpxl2 - 1).ToString()); x++)
+				for (int x = int.Parse((xpxl1).ToString()); x <= int.Parse((xpxl2).ToString()); x++)
 				{
-					drawPixel(int.Parse(x.ToString()), int.Parse(ipart(intery).ToString()), rfpart(intery));
-					drawPixel(int.Parse(x.ToString()), int.Parse(ipart(intery).ToString()) + 1, rfpart(intery));
+					drawPixel(int.Parse(x.ToString()), int.Parse(iPart(intery).ToString()), rfPart(intery)*255);
+					drawPixel(int.Parse(x.ToString()), int.Parse(iPart(intery).ToString()) + 1, fPart(intery)*255);
 					intery += gradient;
 				}
 			}
 		}
 
-        void drawWuLine(int x0,int y0,int x1,int y1)
+        class ColorPoint
+        {
+            int x;
+            int y;
+            int color;
+
+            public ColorPoint(int x, int y, int color)
+            {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+            }
+            public int get_x()
+            {
+                return x;
+            }
+            public int get_y()
+            {
+                return y;
+            }
+            public int get_color()
+            {
+                return color;
+            }
+        };
+
+        int iPart(double d)
+        {
+            return (int)d;
+        }
+
+        int round(double d)
+        {
+            return (int)(d + 0.50000);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
-            if (x1 < x0)
-            {
-                (x0, x1) = (x1, x0);
-                (y0, y1) = (y1, y0);
-            }
-            var dx = x1 - x0;
-            var dy = y1 - y0;
-            var gradient = dy / dx;
-
-            // обработать начальную точку
-            var xend = x0;
-            double yend = y0 + gradient * (xend - x0);
-            var xgap = 1 - fpart(x0 + 0.5);
-            var xpxl0 = xend;  // будет использоваться в основном цикле
-            var ypxl0 = int.Parse(Math.Floor(yend).ToString());
-            drawPixel(xpxl0, ypxl0, (1 - fpart(yend)) * xgap);
-            drawPixel(xpxl0, ypxl0 + 1, fpart(yend) * xgap);
-            var intery = yend + gradient; // первое y-пересечение для цикла
-
-   // обработать конечную точку
-        xend= int.Parse(Math.Round(x1 + 0.5).ToString());
-            yend = y1 + gradient * (xend - x1);
-            xgap = fpart(x1 + 0.5);
-            var xpxl1 = xend;  // будет использоваться в основном цикле
-   var ypxl1= int.Parse(Math.Floor(yend).ToString());
-            drawPixel(xpxl1, ypxl1, (1 - fpart(yend)) * xgap);
-            drawPixel(xpxl1, ypxl1 + 1, fpart(yend) * xgap);
-
-            // основной цикл
-            for (int x = xpxl0 + 1; x <= (xpxl1 - 1); x++) 
-            {
-                drawPixel(x, int.Parse(Math.Floor(intery).ToString()), 1 - fpart(intery));
-                drawPixel(x, int.Parse(Math.Floor(intery).ToString()) + 1, fpart(intery));
-                intery = intery + gradient;
-            }
         }
-   
-    
-   
-    
-    
-    
 
-    
+        private void radioButtonDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            x0 = null;
+            y0 = null;
+            x1 = null;
+            y1 = null;
+            IsDisabled = true;
+            IsBresenham = false;
+            IsWu = false;
+        }
 
+        private void radioButtonBresenham_CheckedChanged(object sender, EventArgs e)
+        {
+            x0 = null;
+            y0 = null;
+            x1 = null;
+            y1 = null;
+            IsDisabled = false;
+            IsBresenham = true;
+            IsWu = false;
+        }
 
-   
+        private void radioButtonWu_CheckedChanged(object sender, EventArgs e)
+        {
+            x0 = null;
+            y0 = null;
+            x1 = null;
+            y1 = null;
+            IsDisabled = false;
+            IsBresenham = false;
+            IsWu = true;
+        }
+
+        double fPart(double d)
+        {
+            return (double)(d - (int)(d));
+        }
+
+        double rfPart(double d)
+        {
+            return (double)(1.00000 - (double)(d - (int)(d)));
+        }
   
     }
 
