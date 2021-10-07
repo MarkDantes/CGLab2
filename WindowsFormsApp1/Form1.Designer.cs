@@ -33,8 +33,12 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.checkBoxLineDrawer = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonWu = new System.Windows.Forms.RadioButton();
+            this.radioButtonBresenham = new System.Windows.Forms.RadioButton();
+            this.radioButtonDisabled = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -73,7 +77,7 @@
             this.comboBox1.Location = new System.Drawing.Point(324, 346);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(82, 24);
+            this.comboBox1.Size = new System.Drawing.Size(82, 33);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
@@ -91,7 +95,7 @@
             this.comboBox2.Location = new System.Drawing.Point(409, 346);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(82, 24);
+            this.comboBox2.Size = new System.Drawing.Size(82, 33);
             this.comboBox2.TabIndex = 6;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
             // 
@@ -109,46 +113,9 @@
             this.comboBox3.Location = new System.Drawing.Point(498, 346);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(82, 24);
+            this.comboBox3.Size = new System.Drawing.Size(82, 33);
             this.comboBox3.TabIndex = 7;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
-            // 
-            // checkBoxLineDrawer
-            // 
-            this.checkBoxLineDrawer.AutoSize = true;
-            this.checkBoxLineDrawer.Location = new System.Drawing.Point(8, 8);
-            this.checkBoxLineDrawer.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxLineDrawer.Name = "checkBoxLineDrawer";
-            this.checkBoxLineDrawer.Size = new System.Drawing.Size(147, 21);
-            this.checkBoxLineDrawer.TabIndex = 0;
-            this.checkBoxLineDrawer.Text = "Enable line drawer";
-            this.checkBoxLineDrawer.UseVisualStyleBackColor = true;
-            this.checkBoxLineDrawer.CheckedChanged += new System.EventHandler(this.onCheckedChanged);
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 396);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBoxLineDrawer);
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouseClick);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonWu = new System.Windows.Forms.RadioButton();
-            this.radioButtonBresenham = new System.Windows.Forms.RadioButton();
-            this.radioButtonDisabled = new System.Windows.Forms.RadioButton();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // groupBox1
             // 
@@ -203,10 +170,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouseClick);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -220,7 +194,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.CheckBox checkBoxLineDrawer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonWu;
         private System.Windows.Forms.RadioButton radioButtonBresenham;
